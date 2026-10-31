@@ -2,7 +2,7 @@ name: poller
 # PAPER ONLY public-data observer. No secrets besides the built-in GITHUB_TOKEN (push to the 'data' branch of this repo).
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '3-59/5 * * * *'   # offset from :00 (GitHub drops many top-of-hour */5 slots)
   workflow_dispatch: {}
 permissions:
   contents: write
