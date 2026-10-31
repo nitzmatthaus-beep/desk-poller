@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 1
       - name: fetch inputs and previous data
         run: |
-          git fetch --depth=1 origin inputs data || true
+          for b in inputs data; do git fetch -q --depth=1 origin "+refs/heads/$b:refs/remotes/origin/$b" || echo "no $b branch yet"; done
           git show origin/inputs:inputs.json > /tmp/inputs.json 2>/dev/null || echo '{}' > /tmp/inputs.json
           git show origin/data:poll.json > /tmp/prev.json 2>/dev/null || echo '{}' > /tmp/prev.json
       - name: poll public data
