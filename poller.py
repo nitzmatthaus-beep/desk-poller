@@ -141,7 +141,7 @@ def run(inp, prev, now=None):
     now = int(now or time.time()); t0 = time.time()
     out = {"v": 1, "ds": {}, "curves": {}, "sol": [], "events": [], "lw": {}, "swaps": [], "ws": {}, "runs": []}
     for k in out:
-        if k != "v" and isinstance(prev.get(k), type(out[k])): out[k] = prev[k]
+        if k != "v" and isinstance(prev.get(k), type(out[k])): out[k] = json.loads(json.dumps(prev[k]))  # copy: changed() compares with prev
     ack = int(inp.get("ack") or 0); budget = int(inp.get("budget") or DEFAULT_BUDGET)
     keep = lambda ts: ts >= now - KEEP_SAMPLE_S or ts > ack
     # 1) prices of open positions (DexScreener, one batch call per 30 mints)
